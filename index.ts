@@ -61,3 +61,29 @@ const sendInvoice = (
 };
 
 console.log(sendInvoice(monthPayments, electricityUserData, waterUserData));
+
+/* Type aliases */
+type AnimationTimingFunction = "ease" | "ease-out" | "ease-in";
+
+/* Literal types */
+function createAnimation(
+	id: string | number,
+	animName: string,
+	timingFunc: AnimationTimingFunction = "ease",
+	duration: number,
+	iterCount: "infinite" | number
+): void {
+	// const elem = document.querySelector(`#${id}`) as HTMLElement;
+
+	// if (elem) {
+	console.log(`${animName} ${timingFunc} ${duration} ${iterCount}`);
+	// elem.style.animation = `${animName} ${timingFunc} ${duration} ${iterCount}`;
+	// }
+}
+
+createAnimation("id", "fade", "ease-in", 5, "infinite");
+
+/* тест на тип */
+const port3000: number = 3000;
+const port3001 = 3001;
+let port3002 = 3002;
