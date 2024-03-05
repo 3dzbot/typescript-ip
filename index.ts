@@ -27,7 +27,7 @@ const calculatePayments = (
 		}, 
 		elRate: number, 
 		wRate: number
-	) => {
+	): void => {
 	if (mode === "double" && readings < 50) {
 		monthPayments[0] = readings * elRate * 0.7;
 	} else {
@@ -87,3 +87,29 @@ createAnimation("id", "fade", "ease-in", 5, "infinite");
 const port3000: number = 3000;
 const port3001 = 3001;
 let port3002 = 3002;
+
+type Config = { protocol: "http" | "https"; port: 3000 | 3001 };
+type Role = {
+	role: string
+}
+type ConfigWithRole = Config & Role;
+
+const serverConfig: ConfigWithRole = {
+	protocol: "http",
+	port: 3000,
+	role: "admin"
+}
+
+type StartFunction = (protocol: "http" | "https", port: 3000 | 3001) => string;
+const startServer: StartFunction = (
+	protocol: "http" | "https",
+	port: 3000 | 3001
+): "Server started" => {
+	if (port === port3000 || port === port3001) {
+		console.log(`Server started on ${protocol}://server:${port}`);
+	} else {
+		console.error("Invalid port");
+	}
+
+	return "Server started";
+}
