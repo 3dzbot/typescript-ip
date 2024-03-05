@@ -140,3 +140,7 @@ const styles: Styles = {
 	position: 'absolute',
 	top: '20px'
 }
+
+/* readonly (Property Modifiers) */
+const BasicPorts: readonly [number, ...string[]] = [3000, '3001', '5555'];
+const BasicPorts1: ReadonlyArray<number> = [3000, 3001, 5555];
