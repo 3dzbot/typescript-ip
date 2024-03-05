@@ -23,4 +23,17 @@ function sendUserData(obj: User, db?: string): void {
 	console.log(obj.parents?.father?.toLowerCase(), db?.toLowerCase());
 }	
 
-sendUserData(user, dbName)
+sendUserData(user, dbName);
+
+enum Directions {
+	TOP,
+	RIGHT,
+	BOTTOM,
+	LEFT
+}
+
+function showDirection(dir: Directions) {
+	console.log(dir);
+}
+
+showDirection(Directions.BOTTOM);
