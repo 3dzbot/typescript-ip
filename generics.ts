@@ -170,3 +170,52 @@ type CompanyOwnerType = ICompany2["managment"]["owner"];
 type CompanyDepartmentsType = ICompany2["departments"][number];
 type CompanyDepartmentsTypes = ICompany2["departments"];
 type TestICompKeys = ICompany2[keyof ICompany2];
+
+
+/** Conditional types and infer */
+
+type ExampleT = "string" extends "Hello" ? string : number;
+
+type FromUserOrFromBase<T extends string | number> = T extends string ? IDataFromUser : IDataFromBase;
+
+interface UserGN <T extends 'created' | Date> {
+	created: T extends 'created' ? 'created' : Date;
+}
+
+const userGN: UserGN<'created'> = {
+	created: 'created'
+}
+
+interface IDataFromUser {
+	weight: string;
+}
+
+interface IDataFromBase {
+	calories: number;
+}
+
+//function calculatedDailyCalories(str: string): IDataFromUser;
+//function calculatedDailyCalories(str: number): IDataFromBase;
+//function calculatedDailyCalories( numOrString: string | number ): IDataFromUser | IDataFromBase {
+//function calculatedDailyCalories<T extends string | number>( numOrString: T ): T extends string ? IDataFromUser : IDataFromBase {
+function calculatedDailyCalories<T extends string | number>( numOrString: T ): FromUserOrFromBase<T> {
+	if (typeof numOrString === "string") {
+		const obj: IDataFromUser = {
+			weight: numOrString
+		}
+		//return obj
+		return obj as FromUserOrFromBase<T>;
+	} else {
+		const obj: IDataFromBase = {
+			calories: numOrString
+		}
+		//return obj;
+		return obj as FromUserOrFromBase<T>;
+	}
+}
+
+type GetFirstType<T> = T extends Array<infer First> ? First : T;
+type Ex = GetFirstType<number[]>;
+
+//получает любой тип и возвращает массив этого типа
+type ToArray<Type> = Type extends any ? Type[] : never;
