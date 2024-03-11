@@ -146,3 +146,27 @@ const google: ICompany = {
 /** Способ получить ключи у типа через экземпляр обьекта */
 type GoogleKeys = keyof typeof google; 
 const keys2: GoogleKeys = "name"; //смотри const keys (128 строка)
+
+/** Indexed Access Types */
+
+interface ICompany2 {
+	name: string;
+	debts: number;
+	departments: Department[];
+	managment: {
+		owner: string;
+	}
+}
+
+interface Department {
+	[key: string]: string;
+}
+
+const debts = "debts";
+
+type CompanyDebtsType = ICompany2["debts"];
+type CompanyDebtsType2 = ICompany2[typeof debts];
+type CompanyOwnerType = ICompany2["managment"]["owner"];
+type CompanyDepartmentsType = ICompany2["departments"][number];
+type CompanyDepartmentsTypes = ICompany2["departments"];
+type TestICompKeys = ICompany2[keyof ICompany2];
