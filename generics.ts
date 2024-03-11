@@ -219,3 +219,23 @@ type Ex = GetFirstType<number[]>;
 
 //получает любой тип и возвращает массив этого типа
 type ToArray<Type> = Type extends any ? Type[] : never;
+
+
+/** Utility types */
+
+function calculate(a: number, b: number): number {
+	return a * b;
+}
+//получает возвращаемый тип какой-либо функции
+type CalculateRT = ReturnType<typeof calculate>;
+
+type CalculateParamsType = Parameters<typeof calculate>;
+type CalculateParamsType1 = Parameters<typeof calculate>[0];
+type PT1 = Parameters<(a: number) => number>;
+type PT2 = Parameters<<T>(arg: T) => T>;
+
+class ExampleGC {
+	constructor(a: number) {}
+}
+
+type T0 = ConstructorParameters<typeof ExampleGC>;
