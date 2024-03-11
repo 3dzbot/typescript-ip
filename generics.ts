@@ -137,3 +137,12 @@ const testCompany: ICompany = {
 }
 
 printDebts(testCompany, "name", "debts");
+
+const google: ICompany = {
+	name: 'Google',
+	debts: 150000
+}
+
+/** Способ получить ключи у типа через экземпляр обьекта */
+type GoogleKeys = keyof typeof google; 
+const keys2: GoogleKeys = "name"; //смотри const keys (128 строка)
