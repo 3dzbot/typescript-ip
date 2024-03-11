@@ -116,3 +116,24 @@ function action(state: Readonly<IState>) {
 /** Readonly - запрет на изменение */
 /** Partial - делает свойства необязательными ?: */
 /** Required - обратный Partial. Удаляет все символы необязательности */
+
+/** Оператор keyof */
+
+interface ICompany {
+	name: string;
+	debts: number;
+}
+
+type CompanyKeys = keyof ICompany;
+const keys: CompanyKeys = "name";
+
+function printDebts<T, K extends keyof T, S extends keyof T>(company: T, name: K, debts: S) {
+	console.log(`Compane ${company[name]}, debts: ${company[debts]}`)
+}
+
+const testCompany: ICompany = {
+	name: 'hhh',
+	debts: 50000
+}
+
+printDebts(testCompany, "name", "debts");
