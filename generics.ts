@@ -239,3 +239,34 @@ class ExampleGC {
 }
 
 type T0 = ConstructorParameters<typeof ExampleGC>;
+
+/** Promise и JSON */
+
+//основная идея -> unknown а далее сужать тип
+
+/** Awaited */
+//формирование типа которій возвращает определенній промис
+
+type FromPromise1 = Awaited<Promise<number>>;
+type FromPromise = Awaited<Promise<Promise<number>>>;
+
+interface UserP {
+	name: string;
+}
+
+async function fetchUsers(): Promise<UserP[]> {
+	const users: UserP[] = [
+		{
+			name: "some"
+		}
+	]
+	return users;
+}
+
+const users = fetchUsers();
+
+type FetchUsersReturnType = Awaited<ReturnType<typeof fetchUsers>>
+
+//old version
+type UnwrappedPromise<T> = T extends Promise<infer Return> ? Return : T; // before Awaited
+type FetchDataReturnType = UnwrappedPromise<ReturnType<typeof fetchUsers>>
