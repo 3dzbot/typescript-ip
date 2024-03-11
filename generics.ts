@@ -73,3 +73,46 @@ const saver: DataSaver = {
 }
 
 /** Generics types and interfaces, constraints */
+
+interface ParentsOfUser {
+	mother: string;
+	father: string;
+}
+/** Расширение дженерика с ограничением свойств */
+interface UserG<ParentsData extends ParentsOfUser> {
+	login: string;
+	age: number;
+	parents: ParentsData;
+}
+
+const userG: UserG<{mother: string; father: string; test: string}> = {
+	login: 'str',
+	age: 50,
+	parents: {mother: "Anna", father: "no data", test: "some"}
+}
+
+type OrNull<Type> = Type | null;
+type OneOrMany<Type> = Type | Type[];
+
+const dataG: OneOrMany<number[]> = [5];
+
+const depositMoney = <T extends number | string>(amount: T): T => {
+	return amount;
+}
+
+/** Readonly, Partial, Required */
+interface IState {
+	data: {
+		name: string;
+	};
+	tag: string;
+}
+
+function action(state: Readonly<IState>) {
+	/** запрет на 1н уровень вложенности */
+	state.data.name = 'atd'
+}
+
+/** Readonly - запрет на изменение */
+/** Partial - делает свойства необязательными ?: */
+/** Required - обратный Partial. Удаляет все символы необязательности */
